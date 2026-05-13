@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neev Jomy | Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #080b14;
+      --surface: rgba(255,255,255,0.03);
+      --border: rgba(255,255,255,0.07);
+      --accent: #6ee7f7;
+      --accent2: #a78bfa;
+      --accent3: #f472b6;
+      --text: #e8eaf0;
+      --muted: #8892a4;
+      --card: rgba(255,255,255,0.04);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Background mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 80% -10%, rgba(110,231,247,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at -10% 80%, rgba(167,139,250,0.07) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(244,114,182,0.05) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(24px);
+      background: rgba(8,11,20,0.8);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+    }
+
+    .nav-links button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-links button:hover { color: var(--text); background: var(--surface); }
+    .nav-links button.active { color: var(--accent); background: rgba(110,231,247,0.08); }
+
+    .nav-contact {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 9px 22px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+      letter-spacing: 0.2px;
+    }
+
+    .nav-contact:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ── PAGES ── */
+    .page { display: none; padding-top: 68px; position: relative; z-index: 1; }
+    .page.active { display: block; }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── HOME PAGE ── */
+    .home-hero {
+      min-height: calc(100vh - 68px);
+      display: flex;
+      align-items: center;
+      padding: 60px 40px;
+      max-width: 1100px;
+      margin: 0 auto;
+      gap: 80px;
+    }
+
+    .hero-left { flex: 1; }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(110,231,247,0.25);
+      background: rgba(110,231,247,0.06);
+      padding: 7px 16px;
+      border-radius: 40px;
+      margin-bottom: 28px;
+    }
+
+    .hero-tag::before { content: '●'; font-size: 0.5rem; }
+
+    h1.hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(3.2rem, 7vw, 5.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+    }
+
+    h1.hero-name span {
+      display: block;
+      background: linear-gradient(135deg, #fff 20%, var(--accent2) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 480px;
+      margin-bottom: 44px;
+      font-weight: 300;
+    }
+
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--bg);
+      background: var(--accent);
+      padding: 14px 30px;
+      border-radius: 12px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(110,231,247,0.25); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 14px 30px;
+      border-radius: 12px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
+
+    /* Profile photo */
+    .hero-right {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .photo-frame {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+
+    .photo-frame::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent3), var(--accent));
+      animation: spin 6s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .photo-frame::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: var(--bg);
+    }
+
+    .photo-frame img, .photo-placeholder {
+      position: absolute;
+      inset: 6px;
+      width: calc(100% - 12px);
+      height: calc(100% - 12px);
+      border-radius: 50%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .photo-placeholder {
+      background: linear-gradient(135deg, #1a1f35, #0f1628);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    .photo-placeholder svg { width: 52px; opacity: 0.4; }
+
+    /* Quick stats */
+    .quick-stats {
+      display: flex;
+      gap: 16px;
+    }
+
+    .stat-chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 18px;
+      text-align: center;
+    }
+
+    .stat-chip strong {
+      display: block;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-chip span { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── ABOUT PAGE ── */
+    .page-header {
+      padding: 70px 0 50px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 60px;
+    }
+
+    .page-tag {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h2.page-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+      padding-bottom: 80px;
+    }
+
+    .about-photo-wrap { position: relative; }
+
+    .about-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: 28px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #1a1f35, #0f1628);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .about-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #12172b, #0e1322);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .about-img-placeholder svg { width: 60px; opacity: 0.35; }
+
+    .about-img-badge {
+      position: absolute;
+      bottom: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: var(--bg);
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .about-content { padding-top: 10px; }
+
+    .about-content h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .about-content p {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+      font-weight: 300;
+      font-size: 1.02rem;
+    }
+
+    .info-list { list-style: none; margin-top: 30px; }
+
+    .info-list li {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    .info-list li:last-child { border-bottom: none; }
+    .info-list li strong { color: var(--muted); font-weight: 500; min-width: 100px; }
+
+    /* Languages/Skills section */
+    .skills-section { padding-bottom: 80px; }
+
+    .skills-section h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 36px;
+      letter-spacing: -0.5px;
+    }
+
+    .lang-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 18px;
+    }
+
+    .lang-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px 16px 20px;
+      text-align: center;
+      transition: all 0.25s;
+      cursor: default;
+    }
+
+    .lang-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    }
+
+    .lang-logo {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lang-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .lang-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .lang-level {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── PROJECTS PAGE ── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      padding-bottom: 80px;
+    }
+
+    .proj-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .proj-card:hover {
+      border-color: rgba(110,231,247,0.3);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .proj-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+    }
+
+    .proj-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.3px;
+    }
+
+    .proj-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.65; flex: 1; }
+
+    .proj-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 24px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 8px;
+      letter-spacing: 0.3px;
+    }
+
+    .tag img { width: 14px; height: 14px; object-fit: contain; }
+
+    .tag.java { background: rgba(237,108,2,0.12); color: #fb923c; }
+    .tag.matlab { background: rgba(110,231,247,0.1); color: var(--accent); }
+    .tag.web { background: rgba(167,139,250,0.1); color: var(--accent2); }
+
+    /* ── ACHIEVEMENTS PAGE ── */
+    .ach-list { padding-bottom: 80px; }
+
+    .ach-card {
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 20px;
+      transition: all 0.25s;
+    }
+
+    .ach-card:hover {
+      border-color: rgba(167,139,250,0.3);
+      transform: translateX(4px);
+    }
+
+    .ach-icon-wrap {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .ach-card h4 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .ach-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.65; }
+
+    .ach-year {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--accent2);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* ── FOOTER / CONTACT ── */
+    .contact-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-top: 50px;
+    }
+
+    .contact-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.2s;
+    }
+
+    .contact-box:hover { border-color: var(--accent); }
+
+    .contact-box label {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .contact-box p, .contact-box a {
+      display: block;
+      margin-top: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .contact-box a:hover { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .home-hero { flex-direction: column; padding: 50px 20px; gap: 50px; text-align: center; }
+      .hero-desc { margin: 0 auto 40px; }
+      .hero-actions { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-inner { padding: 0 20px; }
+      .wrap { padding: 0 20px; }
+      .photo-frame { width: 220px; height: 220px; }
+      .quick-stats { justify-content: center; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .page.active .home-hero > *,
+    .page.active .page-header,
+    .page.active .about-grid,
+    .page.active .project-grid,
+    .page.active .ach-card,
+    .page.active .lang-card {
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .hero-left { animation-delay: 0.05s; }
+    .hero-right { animation-delay: 0.15s; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">NJ</div>
+      <ul class="nav-links">
+        <li><button onclick="showPage('home')" class="active" id="nav-home">Home</button></li>
+        <li><button onclick="showPage('about')" id="nav-about">About</button></li>
+        <li><button onclick="showPage('projects')" id="nav-projects">Projects</button></li>
+        <li><button onclick="showPage('achievements')" id="nav-achievements">Achievements</button></li>
+      </ul>
+      <a href="mailto:neevjomy71@gmail.com" class="nav-contact">Contact →</a>
+    </div>
+  </nav>
+
+  
+  <div class="page active" id="page-home">
+    <div class="home-hero">
+      <div class="hero-left">
+        <div class="hero-tag">CSE Student · Amrita Vishwa Vidyapeetham</div>
+        <h1 class="hero-name">
+          Hello, I'm<br>
+          <span>Neev Jomy</span>
+        </h1>
+        <p class="hero-desc">
+          Computer Science student passionate about programming, web development,
+          and building software that solves real problems.
+        </p>
+        <div class="hero-actions">
+          <button class="btn-main" onclick="showPage('projects')">View Projects →</button>
+          <button class="btn-ghost" onclick="showPage('about')">About Me</button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="photo-frame">
+          
+          <img src="images.jpeg" alt="Neev Jomy">
+        </div>
+        <div class="quick-stats">
+          <div class="stat-chip"><strong>3+</strong><span>Projects</span></div>
+          <div class="stat-chip"><strong>5+</strong><span>Languages</span></div>
+          <div class="stat-chip"><strong>CSE</strong><span>Major</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="page" id="page-about">
+    <div class="wrap">
+      <div class="page-header">
+        <div class="page-tag">About</div>
+        <h2 class="page-title">A little about me</h2>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-photo-wrap">
+            <img src="kanye.jpg" alt="Neev Jomy" class="about-img">
+        </div>
+
+        <div class="about-content">
+          <h3>Who am I?</h3>
+          <p>
+            I'm a Computer Science student at Amrita Vishwa Vidyapeetham with a
+            curiosity-driven approach to technology. I enjoy exploring different
+            areas — from backend logic to front-end design — and building things
+            that work.
+          </p>
+          <p>
+            Outside of code, I participate in hackathons, CTF competitions, and
+            technical workshops that keep pushing my skills further.
+          </p>
+          <ul class="info-list">
+            <li><strong>University</strong> Amrita Vishwa Vidyapeetham</li>
+            <li><strong>Degree</strong> B.Tech in Computer Science</li>
+            <li><strong>Email</strong> neevjomy71@gmail.com</li>
+            <li><strong>Phone</strong> 902109021</li>
+            <li><strong>Interests</strong> Web Dev, Security, Software</li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div class="skills-section">
+        <h3>Languages & Tools I Know</h3>
+        <div class="lang-grid">
+
+          <div class="lang-card">
+            <div class="lang-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+            </div>
+            <div class="lang-name">Python</div>
+            <div class="lang-level">Intermediate</div>
+          </div>
+
+          <div class="lang-card">
+            <div class="lang-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java">
+            </div>
+            <div class="lang-name">Java</div>
+            <div class="lang-level">Intermediate</div>
+          </div>
+
+          <div class="lang-card">
+            <div class="lang-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg" alt="C">
+            </div>
+            <div class="lang-name">C</div>
+            <div class="lang-level">Beginner</div>
+          </div>
+
+          <div class="lang-card">
+            <div class="lang-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+            </div>
+            <div class="lang-name">HTML</div>
+            <div class="lang-level">Intermediate</div>
+          </div>
+
+          <div class="lang-card">
+            <div class="lang-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+            </div>
+            <div class="lang-name">CSS</div>
+            <div class="lang-level">Intermediate</div>
+          </div>
+
+          <div class="lang-card">
+            <div class="lang-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg" alt="MATLAB">
+            </div>
+            <div class="lang-name">MATLAB</div>
+            <div class="lang-level">Beginner</div>
+          </div>
+
+          <div class="lang-card">
+            <div class="lang-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git">
+            </div>
+            <div class="lang-name">Git</div>
+            <div class="lang-level">Beginner</div>
+          </div>
+
+          <div class="lang-card">
+            <div class="lang-logo">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux">
+            </div>
+            <div class="lang-name">Linux</div>
+            <div class="lang-level">Beginner</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PROJECTS ── -->
+  <div class="page" id="page-projects">
+    <div class="wrap">
+      <div class="page-header">
+        <div class="page-tag">Projects</div>
+        <h2 class="page-title">Things I've built</h2>
+      </div>
+
+      <div class="project-grid">
+
+        <div class="proj-card">
+          <div class="proj-icon" style="background:rgba(237,108,2,0.12)">☕</div>
+          <h3>Library Management System</h3>
+          <p>A Java-based application to manage books, users, and borrowing records in a library. Covers OOP principles and file handling.</p>
+          <div class="proj-footer">
+            <span class="tag java">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt=""> Java
+            </span>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-icon" style="background:rgba(110,231,247,0.08)">📐</div>
+          <h3>Vector Visualization</h3>
+          <p>MATLAB program that renders vectors in 2D/3D space and demonstrates basic vector arithmetic operations interactively.</p>
+          <div class="proj-footer">
+            <span class="tag matlab">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg" alt=""> MATLAB
+            </span>
+          </div>
+        </div>
+
+        <div class="proj-card">
+          <div class="proj-icon" style="background:rgba(167,139,250,0.1)">🌐</div>
+          <h3>Portfolio Website</h3>
+          <p>Personal portfolio built from scratch with HTML and CSS — responsive design, smooth animations, and clean layout.</p>
+          <div class="proj-footer">
+            <span class="tag web">
+              <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt=""> HTML / CSS
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ACHIEVEMENTS ── -->
+  <div class="page" id="page-achievements">
+    <div class="wrap">
+      <div class="page-header">
+        <div class="page-tag">Achievements</div>
+        <h2 class="page-title">Milestones & Recognition</h2>
+      </div>
+
+      <div class="ach-list">
+
+        <div class="ach-card">
+          <div class="ach-icon-wrap" style="background:rgba(251,191,36,0.1)">🏆</div>
+          <div>
+            <h4>Hackathon Participation</h4>
+            <p>Competed in coding competitions and hackathons, collaborating with teams to design and build solutions under time pressure.</p>
+            <div class="ach-year">COMPETITIONS</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-icon-wrap" style="background:rgba(110,231,247,0.08)">🔑</div>
+          <div>
+            <h4>CTF Ranking</h4>
+            <p>Achieved a strong ranking in Capture the Flag cybersecurity competitions, applying problem-solving and security knowledge.</p>
+            <div class="ach-year">SECURITY</div>
+          </div>
+        </div>
+
+        <div class="ach-card">
+          <div class="ach-icon-wrap" style="background:rgba(167,139,250,0.1)">📘</div>
+          <div>
+            <h4>Technical Workshops</h4>
+            <p>Attended and participated in workshops on web development, programming paradigms, and modern software practices.</p>
+            <div class="ach-year">LEARNING</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Contact in achievements page footer -->
+      <div class="contact-section">
+        <div class="page-tag">Contact</div>
+        <h2 class="page-title" style="font-size:2rem;margin-top:14px">Get in touch</h2>
+        <div class="contact-row">
+          <div class="contact-box"><label>Name</label><p>Neev Jomy</p></div>
+          <div class="contact-box"><label>Email</label><a href="mailto:neevjomy71@gmail.com">neevjomy71@gmail.com</a></div>
+          <div class="contact-box"><label>Phone</label><p>902109021</p></div>
+          <div class="contact-box"><label>University</label><p>Amrita Vishwa Vidyapeetham</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function showPage(name) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+      document.getElementById('page-' + name).classList.add('active');
+      document.getElementById('nav-' + name).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
